@@ -52,7 +52,7 @@ class TestFeedPage:
 
     @allure.title('После создания заказа его номер появляется в списке "В работе"')
     def test_create_new_order_number_of_order_shows_at_work(self, feed_page_with_logged_in_user: FeedPage):
-        feed_page_with_logged_in_user.open_new_tab(UrlsContainer.MAIN_PAGE_URL)
+        feed_page_with_logged_in_user.open_new_tab(UrlsContainer.BASE_URL)
         feed_page_with_logged_in_user.create_order()  # Создаём новый заказ.
         feed_page_with_logged_in_user.wait_until_condition(lambda condition: str(9999) not in feed_page_with_logged_in_user.find_element_with_wait(MainPageLocators.ORDER_CREATED_INFORMATION).text)
         order_number = re.search(r'(\d+)', feed_page_with_logged_in_user.find_element_with_wait(MainPageLocators.ORDER_CREATED_INFORMATION).text).group(1)
@@ -75,7 +75,7 @@ class TestFeedPage:
         # Получаем значение счётчика до создания заказа.
         counter_before_order_creating = int(feed_page_with_logged_in_user.find_element_with_wait(counter_locator).text)
         # Открываем вкладку для создания заказа.
-        feed_page_with_logged_in_user.open_new_tab(UrlsContainer.MAIN_PAGE_URL)
+        feed_page_with_logged_in_user.open_new_tab(UrlsContainer.BASE_URL)
         feed_page_with_logged_in_user.create_order() # Создаём новый заказ.
 
         feed_page_with_logged_in_user.wait_until_condition(lambda condition: '9999' not in feed_page_with_logged_in_user.find_element_with_wait(MainPageLocators.ORDER_CREATED_INFORMATION).text)

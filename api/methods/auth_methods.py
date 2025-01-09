@@ -1,16 +1,15 @@
 import allure
 import requests
 
-import helpers
-from api.urls import BASE_URL, AUTH_URL
 from data.data import User
+from data.urls import UrlsContainer
 
 
 class AuthMethods:
     @staticmethod
     @allure.step("Создание нового пользователя")
     def create_new_user(new_user: User):
-        response = requests.post(f'{BASE_URL}{AUTH_URL}register', json=new_user.get_register_json())
+        response = requests.post(UrlsContainer.API_REGISTER_USER_URL, json=new_user.get_register_json())
 
         response_json = response.json()
 
@@ -22,5 +21,5 @@ class AuthMethods:
     @staticmethod
     @allure.step("Удаление пользователя")
     def delete_user(user: User):
-        response = requests.delete(f'{BASE_URL}{AUTH_URL}user', json={'accessToken': user.access_token})
+        response = requests.delete(UrlsContainer.API_USER_URL, json={'accessToken': user.access_token})
         return response.status_code, response.json(), user

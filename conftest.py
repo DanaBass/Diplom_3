@@ -24,7 +24,7 @@ def driver(request):
 
 @pytest.fixture()
 def main_page_driver(driver):
-    driver.get(UrlsContainer.MAIN_PAGE_URL)
+    driver.get(UrlsContainer.BASE_URL)
     return driver
 
 @pytest.fixture()
